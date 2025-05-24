@@ -1,0 +1,241 @@
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Mail, Github, Linkedin, Sun, Moon, ChevronDown, ChevronUp } from "lucide-react";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.8 }
+};
+
+export default function Portfolio() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [certsOpen, setCertsOpen] = useState(false);
+
+  return (
+    <div className={`${darkMode ? "dark" : ""}`}>
+      <div className="relative min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white p-4 md:p-10 font-sans overflow-hidden transition-colors duration-300">
+        
+        {/* Dark Mode Toggle */}
+        <div className="absolute top-4 right-4 z-50">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="bg-indigo-600 text-white p-2 rounded-full shadow-md hover:bg-indigo-700 transition"
+            aria-label="Toggle Dark Mode"
+          >
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute w-[700px] h-[700px] bg-purple-300 dark:bg-purple-800 opacity-30 rounded-full blur-[160px] top-[-100px] left-[-200px] animate-[blob_20s_infinite]" />
+          <div className="absolute w-[500px] h-[500px] bg-pink-200 dark:bg-pink-600 opacity-30 rounded-full blur-[160px] top-[300px] left-[1000px] animate-[blob_25s_infinite]" />
+          <style>{`@keyframes blob { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-20px, 30px); } }`}</style>
+        </div>
+
+        {/* Header (no profile image) */}
+        <motion.header
+          initial="initial"
+          whileInView="whileInView"
+          transition="transition"
+          variants={fadeInUp}
+          viewport={{ once: true }}
+          className="mb-20 text-center"
+        >
+          <h1 className="text-6xl font-extrabold mb-3 text-indigo-700 dark:text-indigo-300 drop-shadow-lg">
+            Hi, I'm [Your Name]
+          </h1>
+          <p className="text-2xl text-gray-700 dark:text-gray-300">
+            A Passionate Developer | Recent Graduate
+          </p>
+        </motion.header>
+
+        {/* About Section */}
+        <motion.section {...fadeInUp} viewport={{ once: true }} className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-6 border-b-4 border-indigo-300 dark:border-indigo-500 inline-block pb-2">
+            About Me
+          </h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            I'm a recent graduate with a strong interest in web development and software engineering. I love building responsive, user-friendly websites and applications. I'm currently seeking opportunities to apply my skills and grow in the tech industry.
+          </p>
+        </motion.section>
+
+        {/* Skills Section */}
+        <motion.section {...fadeInUp} viewport={{ once: true }} className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-6 border-b-4 border-indigo-300 dark:border-indigo-500 inline-block pb-2">
+            Skills
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
+            {[
+              "HTML", "CSS", "JavaScript", "React", "Next.js",
+              "Tailwind CSS", "Node.js", "Express", "MongoDB", "Git"
+            ].map((skill, index) => (
+              <motion.div
+                key={skill}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg py-4 px-6 hover:shadow-2xl transition duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <p className="font-medium text-indigo-700 dark:text-indigo-300">{skill}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Projects Section */}
+        <motion.section {...fadeInUp} viewport={{ once: true }} className="mb-10 max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-6 border-b-4 border-indigo-300 dark:border-indigo-500 inline-block pb-2">
+            Projects
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((_, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden transition-transform"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card>
+                  <img
+                    src={`/project-${i + 1}.jpg`}
+                    alt={`Project ${i + 1}`}
+                    className="w-full h-48 object-cover"
+                  />
+                  <CardContent className="p-5">
+                    <h3 className="text-xl font-semibold text-indigo-700 dark:text-indigo-300 mb-2">
+                      Project Title {i + 1}
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-3">
+                      Description of the project and key technologies used.
+                    </p>
+                    <a
+                      href="#"
+                      className="text-indigo-500 dark:text-indigo-400 font-medium hover:underline"
+                    >
+                      View Project →
+                    </a>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Certifications Section (collapsible) */}
+        <motion.section
+          {...fadeInUp}
+          viewport={{ once: true }}
+          className="mb-20 max-w-4xl mx-auto"
+        >
+          <button
+            onClick={() => setCertsOpen(!certsOpen)}
+            className="flex items-center justify-between w-full bg-indigo-600 dark:bg-indigo-800 text-white text-3xl font-bold px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 dark:hover:bg-indigo-900 transition"
+            aria-expanded={certsOpen}
+          >
+            Certifications
+            {certsOpen ? (
+              <ChevronUp className="w-7 h-7" />
+            ) : (
+              <ChevronDown className="w-7 h-7" />
+            )}
+          </button>
+
+          {certsOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.5 }}
+              className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              {/* Example Certifications */}
+              {[
+                {
+                  title: "Frontend Development Certification",
+                  issuer: "FreeCodeCamp",
+                  date: "2024",
+                  link: "https://www.freecodecamp.org/certification/your-profile/frontend",
+                },
+                {
+                  title: "React Developer Nanodegree",
+                  issuer: "Udacity",
+                  date: "2023",
+                  link: "https://www.udacity.com/course/react-nanodegree--nd019",
+                },
+                {
+                  title: "JavaScript Algorithms and Data Structures",
+                  issuer: "freeCodeCamp",
+                  date: "2024",
+                  link: "https://www.freecodecamp.org/certification/your-profile/javascript-algorithms",
+                },
+              ].map((cert, i) => (
+                <Card key={i} className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-5">
+                  <CardContent>
+                    <h3 className="text-xl font-semibold text-indigo-700 dark:text-indigo-300 mb-1">
+                      {cert.title}
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-2">
+                      Issued by {cert.issuer} - {cert.date}
+                    </p>
+                    <a
+                      href={cert.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-500 dark:text-indigo-400 font-medium hover:underline"
+                    >
+                      View Certificate →
+                    </a>
+                  </CardContent>
+                </Card>
+              ))}
+            </motion.div>
+          )}
+        </motion.section>
+
+        {/* Resume Section */}
+        <motion.section {...fadeInUp} viewport={{ once: true }} className="mb-20 text-center">
+          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-6 border-b-4 border-indigo-300 dark:border-indigo-500 inline-block pb-2">
+            Resume
+          </h2>
+          <div className="mt-4">
+            <Button asChild className="text-lg px-6 py-2">
+              <a href="/resume.pdf" download>
+                Download Resume
+              </a>
+            </Button>
+          </div>
+        </motion.section>
+
+        {/* Contact Section */}
+        <motion.section {...fadeInUp} viewport={{ once: true }} className="text-center mb-10">
+          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-6 border-b-4 border-indigo-300 dark:border-indigo-500 inline-block pb-2">
+            Contact
+          </h2>
+          <div className="flex justify-center space-x-6 mt-6">
+            <a href="mailto:you@example.com" className="hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
+              <Mail className="w-7 h-7" />
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
+              <Github className="w-7 h-7" />
+            </a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
+              <Linkedin className="w-7 h-7" />
+            </a>
+          </div>
+        </motion.section>
+
+        {/* Footer */}
+        <footer className="text-center text-sm text-gray-500 dark:text-gray-400 py-6">
+          © {new Date().getFullYear()} [Your Name]. All rights reserved.
+        </footer>
+      </div>
+    </div>
+  );
+}
